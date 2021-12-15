@@ -1,5 +1,6 @@
 use std::env;
 use std::process;
+use std::time::Instant;
 
 mod cli;
 mod days;
@@ -18,8 +19,16 @@ fn run_days() {
             Ok(n) => {
                 let (one, two) = get_day(n);
                 println!("\nSolution for day {}.", n);
-                println!("\nPart a: {:?}", one());
-                println!("\nPart b: {:?}", two());
+                let now = Instant::now();
+                let one_run = one();
+                println!("\nPart a ({}μs): {:?}", now.elapsed().as_micros(), one_run);
+                let now_two = Instant::now();
+                let two_run = two();
+                println!(
+                    "\nPart b ({}μs): {:?}",
+                    now_two.elapsed().as_micros(),
+                    two_run
+                );
             }
             _ => println!("Please enter a valid day. This must be a number."),
         },
