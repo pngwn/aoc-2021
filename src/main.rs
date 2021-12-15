@@ -14,7 +14,7 @@ fn run_days() {
     let args: Vec<String> = env::args().collect();
 
     match args.len() {
-        1 => println!("\nPlease slect a solution to run."),
+        1 => println!("\nPlease select a solution to run."),
         2 => match args[1].parse::<u32>() {
             Ok(n) => {
                 let (one, two) = get_day(n);
@@ -25,7 +25,7 @@ fn run_days() {
                 let now_two = Instant::now();
                 let two_run = two();
                 println!(
-                    "\nPart b ({}μs): {:?}",
+                    "Part b ({}μs): {:?}",
                     now_two.elapsed().as_micros(),
                     two_run
                 );
@@ -34,7 +34,10 @@ fn run_days() {
         },
         3 => {
             let (one, two) = match args[1].parse::<u32>() {
-                Ok(n) => get_day(n),
+                Ok(n) => {
+                    println!("\nSolution for day {}.", n);
+                    get_day(n)
+                }
                 _ => {
                     println!("Please enter a valid day. This must be a number.");
                     return;
@@ -43,16 +46,28 @@ fn run_days() {
             let part = &args[2];
 
             match part.as_str() {
-                "a" => one(),
-                "b" => two(),
-                _ => println!("Only parts \"a\" and \"b\" are valid"),
+                "a" => {
+                    let now = Instant::now();
+                    let one_run = one();
+                    println!("\nPart a ({}μs): {:?}", now.elapsed().as_micros(), one_run);
+                }
+                "b" => {
+                    let now_two = Instant::now();
+                    let two_run = two();
+                    println!(
+                        "\nPart b ({}μs): {:?}",
+                        now_two.elapsed().as_micros(),
+                        two_run
+                    );
+                }
+                _ => println!("\nOnly parts \"a\" and \"b\" are valid"),
             }
         }
         _ => println!("Why so many args?"),
     }
 }
 
-fn get_day(day: u32) -> (fn(), fn()) {
+fn get_day(day: u32) -> (fn() -> u32, fn() -> u32) {
     match day {
         1 => days::day_01::run(),
         _ => {

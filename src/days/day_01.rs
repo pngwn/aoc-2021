@@ -1,11 +1,11 @@
-pub fn run() -> (fn(), fn()) {
+pub fn run() -> (fn() -> u32, fn() -> u32) {
   return (parta, partb);
 }
 
-fn parta() {
-  println!("day1, parta")
+fn parta() -> u32 {
+  1
 }
 
-fn partb() {
-  println!("day1, partb")
+fn partb() -> u32 {
+  2
 }
