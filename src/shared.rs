@@ -1,21 +1,12 @@
-use std::{
-  env,
-  fs::File,
-  io::{prelude::*, BufReader},
-  path::Path,
-};
+use std::{env, fs, path::Path};
 
-pub fn read(num: u8) -> Vec<u32> {
+pub fn read(num: u8) -> String {
   let cwd = env::current_dir().unwrap();
   let filename = cwd.join("inputs").join(format!("day_{:02}.txt", num));
   lines_from_file(filename)
 }
 
-fn lines_from_file(filename: impl AsRef<Path>) -> Vec<u32> {
-  let file = File::open(filename).expect("no such file");
-  let buf = BufReader::new(file);
-  buf
-    .lines()
-    .map(|l| l.expect("Could not parse line").parse::<u32>().unwrap())
-    .collect()
+fn lines_from_file(filename: impl AsRef<Path>) -> String {
+  let file = fs::read_to_string(filename).expect("no such file");
+  file.to_owned()
 }
