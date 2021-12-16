@@ -68,7 +68,7 @@ fn run_days() {
     }
 }
 
-fn get_day(day: u32) -> (fn() -> u32, fn() -> u32) {
+fn get_day(day: u32) -> (fn() -> String, fn() -> String) {
     match day {
         1 => days::day_01::run(),
         _ => {

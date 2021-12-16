@@ -1,38 +1,28 @@
 use crate::shared;
 // use std::str::Lines;
 
-pub fn run() -> (fn() -> u32, fn() -> u32) {
+pub fn run() -> (fn() -> String, fn() -> String) {
   return (parta, partb);
 }
 
-fn parta() -> u32 {
+fn parta() -> String {
   let lines = shared::read(1)
     .lines()
     .map(|l| l.parse::<u32>().expect("Could not parse line"))
     .collect();
-  count_increases(lines)
+  count_increases(lines).to_string()
 }
 
-fn partb() -> u32 {
+fn partb() -> String {
   let lines = shared::read(1)
     .lines()
     .map(|l| l.parse::<u32>().expect("Could not parse line"))
     .collect();
-  count_window_increases(lines)
+  count_window_increases(lines).to_string()
 }
 
-fn count_increases(nums: Vec<u32>) -> u32 {
-  let mut count: i32 = -1;
-  let mut prev = 0;
-
-  for num in nums {
-    if num > prev {
-      count += 1
-    }
-    prev = num;
-  }
-
-  return count as u32;
+fn count_increases(nums: Vec<u32>) -> usize {
+  nums.windows(2).filter(|x| x[0] <= x[1]).count()
 }
 
 fn count_window_increases(nums: Vec<u32>) -> u32 {
