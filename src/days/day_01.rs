@@ -25,23 +25,20 @@ fn count_increases(nums: Vec<u32>) -> usize {
   nums.windows(2).filter(|x| x[0] <= x[1]).count()
 }
 
-fn count_window_increases(nums: Vec<u32>) -> u32 {
-  let mut count: i32 = 0;
-  let mut prev = 0;
-  let mut i = 3;
+fn count_window_increases(nums: Vec<u32>) -> usize {
+  let (_, count) =
+    nums
+      .windows(3)
+      .map(|x| x.iter().sum())
+      .fold((u32::MAX, 0), |(prev, count), curr| {
+        if curr > prev {
+          (curr, count + 1)
+        } else {
+          (curr, count)
+        }
+      });
 
-  for _ in 3..nums.len() {
-    let sum: u32 = [nums[i - 2], nums[i - 1], nums[i]].iter().sum();
-
-    if sum > prev {
-      count += 1
-    }
-
-    prev = sum;
-    i += 1;
-  }
-
-  return count as u32;
+  count
 }
 
 #[cfg(test)]
