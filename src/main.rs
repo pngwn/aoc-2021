@@ -4,6 +4,7 @@ use std::time::Instant;
 
 mod cli;
 mod days;
+mod shared;
 
 fn main() {
     cli::run();
