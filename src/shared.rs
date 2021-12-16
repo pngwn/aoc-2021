@@ -7,7 +7,6 @@ use std::{
 
 pub fn read(num: u8) -> Vec<u32> {
   let cwd = env::current_dir().unwrap();
-  println!("{:?}", cwd);
   let filename = cwd.join("inputs").join(format!("day_{:02}.txt", num));
   lines_from_file(filename)
 }
