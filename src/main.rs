@@ -72,6 +72,7 @@ fn get_day(day: u32) -> (fn() -> String, fn() -> String) {
     match day {
         1 => days::day_01::run(),
         2 => days::day_02::run(),
+        3 => days::day_03::run(),
         _ => {
             println!("No solution for that day");
             process::exit(1)
